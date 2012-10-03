@@ -1,12 +1,5 @@
 install = (node[:phantomjs][:action] == "install")
-
-if defined?(Chef::Extensions)
-  wan_up = Chef::Extensions.wan_up?
-else
-  # Should be part of Chef really...
-  # grab it here https://github.com/gchef/chef-extensions
-  wan_up = "unknown"
-end
+wan_up = `ping -c 1 -W 1 google.com`.index(/1 (?:packets )?received/)
 
 if install
   remote_file "#{node[:phantomjs][:srcdir]}/#{node[:phantomjs][:source_file]}" do
