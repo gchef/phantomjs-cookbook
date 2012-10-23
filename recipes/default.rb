@@ -1,5 +1,5 @@
 install = (node[:phantomjs][:action] == "install")
-wan_up = `ping -c 1 -W 1 8.8.8.8`.index(/1 (?:packets )?received/)
+wan_up = `host -W 1 google.com`.index(/has address/)
 
 if install
   remote_file "#{node[:phantomjs][:srcdir]}/#{node[:phantomjs][:source_file]}" do
